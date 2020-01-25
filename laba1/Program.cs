@@ -3,28 +3,83 @@ using System.Collections.Generic;
 
 namespace laba1
 {
-   class A
+   class MyException : Exception
     {
-
-    }
-    class B
-    {
-        Object first, second;
-        public B(Object first, Object second)
+        public MyException(string message) : base(message)
         {
-            this.first = first;
-            this.second = second;
+
         }
     }
+    class A
+    {
+        protected double x;
+        
+        public double calcLinEquation(double a, double b)
+        {
+            if (a != 0)
+            {
+                return x = -b / a;
+            }
+            throw new MyException("Уравнение не существует");
+        }
+    }
+    class B : A
+    {
+        protected double c;
+        protected List<double> myList = new List<double>();
+
+
+        protected double des(double a, double b, double c)
+        {
+            return b * b - 4 * a * c;
+        }
+        public List<double> solve(double a, double b, double c)
+        {
+            if (a == 0)
+            {
+                double x = this.calcLinEquation(b, c);
+                myList.Add(x);
+                return myList;
+            }
+            
+            double des = this.des(a, b, c);
+            //Корень один
+            if (des == 0)
+            {
+                myList.Add((-b + Math.Sqrt(des)) / 2 * a);
+                return myList;
+            }
+            //два корня
+            if (des > 0)
+            {
+                myList.Add((-1 * b + Math.Sqrt(des)) / (2 * a));
+                myList.Add((-1 * b - Math.Sqrt(des)) / (2 * a));
+                return myList;
+            }
+            throw new MyException("Нет решений");
+        }
+
+    }
+    
     class Program
     {
         static void Main(string[] args)
         {
-            A a1 = new A();
-            A a2 = new A();
-            A a3 = new A();
-            B b1 = new B(new A(), new A());
-            B b2 = new B(b1, new A());
+            List<double> res ;
+            try
+            {
+                B calc = new B();
+                res = calc.solve(0,0,0);
+                foreach(double temp in res)
+                {
+                    Console.WriteLine(temp);
+                }    
+            }
+            catch (MyException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadKey();
         }
     }
 }
