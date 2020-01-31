@@ -10,11 +10,12 @@ namespace laba1
     {
         static void Main(string[] args)
         {
-            string path = @"D:\lab7\version";
+            string path = @"..\..\..\..\version";
             Directory.CreateDirectory("Log");
             using (StreamReader sr = new StreamReader(path))
             {
-                MyLog.log("Версия_программы:_" + sr.ReadToEnd());
+
+                MyLog.log("Версия_программы: " + sr.ReadToEnd().Trim('\n'));
             }
             double a = 0, b = 0, c = 0;
             Console.WriteLine("Введите 3 параметра a, b и с");
