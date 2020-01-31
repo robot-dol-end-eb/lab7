@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using vasikhin;
 
 namespace laba1
 {
@@ -8,6 +10,12 @@ namespace laba1
     {
         static void Main(string[] args)
         {
+            string path = @"D:\lab7\version";
+            Directory.CreateDirectory("Log");
+            using (StreamReader sr = new StreamReader(path))
+            {
+                MyLog.log("Версия_программы:_" + sr.ReadToEnd());
+            }
             double a = 0, b = 0, c = 0;
             Console.WriteLine("Введите 3 параметра a, b и с");
             a = Convert.ToDouble(Console.ReadLine());
